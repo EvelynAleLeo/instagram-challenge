@@ -3,5 +3,33 @@
   <%= @post.text %>
 </p>
 
+<h2>Comments</h2>
+<% @post.comments.each do |comments| %>
+  <p>
+    <strong>Commenter:</strong>
+    <%= comments.commenter %>
+  </p>
+ 
+  <p>
+    <strong>Comment:</strong>
+    <%= comments.body %>
+  </p>
+<% end %>
+
+<h2>Add a comment:</h2>
+<%= form_with(model: [ @post, @post.comments.build ], local: true) do |form| %>
+  <p>
+    <%= form.label :commenter %><br>
+    <%= form.text_field :commenter %>
+  </p>
+  <p>
+    <%= form.label :body %><br>
+    <%= form.text_area :body %>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
+
 <%= link_to 'Edit', edit_post_path(@post) %> |
 <%= link_to 'Go back', posts_path(@post) %>
